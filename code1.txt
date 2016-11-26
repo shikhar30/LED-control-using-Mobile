@@ -1,0 +1,33 @@
+#include <SoftwareSerial.h>// import the serial library
+
+SoftwareSerial RemoteControl(2,3); // RX, TX
+int ledpin=13; 
+int BluetoothData; // the data input
+
+void setup() {
+  
+  Serial.begin(9600);
+  RemoteControl.begin(38400);
+  pinMode(ledpin,OUTPUT);
+}
+
+void loop() {
+   if (RemoteControl.available()){
+BluetoothData=RemoteControl.read();
+Serial.println("REading remote input");
+   if(BluetoothData=='1'){   // if number 1 pressed
+Serial.println("Remote REading 1 input");
+
+   digitalWrite(ledpin,1);
+Serial.println("LED HIGH");
+//   RemoteControl.println("LED is ON ! ");
+   }
+  if (BluetoothData=='0'){// if number 0 pressed
+  Serial.println("Remote Reading 0 input");
+  digitalWrite(ledpin,0);
+//Serial.println("LED LOW");
+//     RemoteControl.println("LED  is Off ! ");
+  }
+}
+delay(1000);
+}
